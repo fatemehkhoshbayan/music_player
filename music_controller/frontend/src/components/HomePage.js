@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
-import CreateRoomPage from "./CreateRoomPage";
 import RoomJoinPage from "./RoomJoinPage";
+import CreateRoomPage from "./CreateRoomPage";
+
 import Room from "./Room";
 import { Grid, Button, ButtonGroup, Typography } from "@material-ui/core";
 import {
   BrowserRouter as Router,
   Switch,
-  Link,
+  
   Route,
+  Link,
   Redirect,
 } from "react-router-dom";
 
@@ -18,10 +19,11 @@ export default class HomePage extends Component {
     this.state = {
       roomCode: null,
     };
+    this.clearRoomCode = this.clearRoomCode.bind(this);
   }
 
   async componentDidMount() {
-    fetch("/api/user_in_room")
+    fetch("/api/user-in-room")
       .then((response) => response.json())
       .then((data) => {
         this.setState({
@@ -32,24 +34,30 @@ export default class HomePage extends Component {
 
   renderHomePage() {
     return (
-      <Grid container={3}>
+      <Grid container spacing={3}>
         <Grid item xs={12} align="center">
-          <Typography variant="h3" component="h3">
-            House Party!
+          <Typography variant="h3" compact="h3">
+            House Party
           </Typography>
         </Grid>
         <Grid item xs={12} align="center">
           <ButtonGroup disableElevation variant="contained" color="primary">
-            <Button to="/join" color="primary" component={Link}>
+            <Button color="primary" to="/join" component={Link}>
               Join a Room
             </Button>
-            <Button to="/create" color="secondary" component={Link}>
+            <Button color="secondary" to="/create" component={Link}>
               Create a Room
             </Button>
           </ButtonGroup>
         </Grid>
       </Grid>
     );
+  }
+
+  clearRoomCode() {
+    this.setState({
+      roomCode: null,
+    });
   }
 
   render() {
@@ -69,7 +77,12 @@ export default class HomePage extends Component {
           />
           <Route path="/join" component={RoomJoinPage} />
           <Route path="/create" component={CreateRoomPage} />
-          <Route path="/Room/:roomCode" component={Room} />
+          <Route
+            path="/room/:roomCode"
+            render={(props) => {
+              return <Room {...props} leaveRoomCallback={this.clearRoomCode} />;
+            }}
+          />
         </Switch>
       </Router>
     );

@@ -18,7 +18,7 @@ export default class MusicPlayer extends Component {
   pauseSong() {
     const requestOptions = {
       method: "PUT",
-      Headers: { "Content_Type": "application/json" },
+      Headers: { Content_Type: "application/json" },
     };
     fetch("/spotify/pause", requestOptions);
   }
@@ -26,9 +26,17 @@ export default class MusicPlayer extends Component {
   playSong() {
     const requestOptions = {
       method: "PUT",
-      Headers: { "Content_Type": "application/json" },
+      Headers: { Content_Type: "application/json" },
     };
     fetch("/spotify/play", requestOptions);
+  }
+
+  skipSong() {
+    const requestOptions = {
+      method: "POST",
+      Headers: { Content_Type: "application/json" },
+    };
+    fetch("/spotify/skip", requestOptions);
   }
 
   render() {
@@ -55,7 +63,8 @@ export default class MusicPlayer extends Component {
               >
                 {this.props.is_palying ? <PauseIcon /> : <PlayArrowIcon />}
               </IconButton>
-              <IconButton>
+              <IconButton onClick={() => this.skipSong()}>
+                {this.props.votes} / {this.props.votes_required}
                 <SkipNextIcon />
               </IconButton>
             </div>

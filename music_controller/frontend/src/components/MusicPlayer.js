@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   Grid,
   Typography,
@@ -10,12 +10,8 @@ import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import PauseIcon from "@material-ui/icons/Pause";
 
-export default class MusicPlayer extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  pauseSong() {
+export default function MusicPlayer(props) {
+  function pauseSong() {
     const requestOptions = {
       method: "PUT",
       Headers: { Content_Type: "application/json" },
@@ -23,7 +19,7 @@ export default class MusicPlayer extends Component {
     fetch("/spotify/pause", requestOptions);
   }
 
-  playSong() {
+  function playSong() {
     const requestOptions = {
       method: "PUT",
       Headers: { Content_Type: "application/json" },
@@ -31,7 +27,7 @@ export default class MusicPlayer extends Component {
     fetch("/spotify/play", requestOptions);
   }
 
-  skipSong() {
+  function skipSong() {
     const requestOptions = {
       method: "POST",
       Headers: { Content_Type: "application/json" },
@@ -39,39 +35,37 @@ export default class MusicPlayer extends Component {
     fetch("/spotify/skip", requestOptions);
   }
 
-  render() {
-    const songProgress = (this.props.time / this.props.duration) * 100;
+  const songProgress = (props.time / props.duration) * 100;
 
-    return (
-      <Card>
-        <Grid container alignItems="center">
-          <Grid item align="center" xs={4}>
-            <img src={this.props.image_url} height="100%" width="100%"></img>
-          </Grid>
-          <Grid item align="center" xs={8}>
-            <Typography component="h5" variant="h5">
-              {this.props.title}
-            </Typography>
-            <Typography color="textSecondary" variant="subtitle1">
-              {this.props.artist}
-            </Typography>
-            <div>
-              <IconButton
-                onClick={() => {
-                  this.props.is_palying ? this.pauseSong() : this.playSong();
-                }}
-              >
-                {this.props.is_palying ? <PauseIcon /> : <PlayArrowIcon />}
-              </IconButton>
-              <IconButton onClick={() => this.skipSong()}>
-                {this.props.votes} / {this.props.votes_required}
-                <SkipNextIcon />
-              </IconButton>
-            </div>
-          </Grid>
+  return (
+    <Card>
+      <Grid container alignItems="center">
+        <Grid item align="center" xs={4}>
+          <img src={props.image_url} height="100%" width="100%"></img>
         </Grid>
-        <LinearProgress variant="determinate" value={songProgress} />
-      </Card>
-    );
-  }
+        <Grid item align="center" xs={8}>
+          <Typography component="h5" variant="h5">
+            {props.title}
+          </Typography>
+          <Typography color="textSecondary" variant="subtitle1">
+            {props.artist}
+          </Typography>
+          <div>
+            <IconButton
+              onClick={() => {
+                props.is_palying ? pauseSong() : playSong();
+              }}
+            >
+              {props.is_palying ? <PauseIcon /> : <PlayArrowIcon />}
+            </IconButton>
+            <IconButton onClick={() => skipSong()}>
+              {props.votes} / {props.votes_required}
+              <SkipNextIcon />
+            </IconButton>
+          </div>
+        </Grid>
+      </Grid>
+      <LinearProgress variant="determinate" value={songProgress} />
+    </Card>
+  );
 }

@@ -19,16 +19,12 @@ export default function HomePage(props) {
   useEffect(() => {
     async function getRoomCode() {
       fetch("/api/user-in-room")
-        .then((response) => {
-          response.json();
-          console.log(response);
-        })
+        .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           setRoomCode(data.code);
         });
     }
-    getRoomCode();
+    getRoomCode;
   });
 
   function renderHomePage() {

@@ -24,7 +24,6 @@ export default function CreateRoomPage(props) {
   const [successMsg, setSuccessMsg] = useState("");
 
   const history = useHistory();
-
   function updateCallback() {
     () => {};
   }
@@ -109,7 +108,7 @@ export default function CreateRoomPage(props) {
     );
   }
 
-  const title = update ? "Update Room" : "Creat a Room";
+  const title = props.update ? "Update Room" : "Creat a Room";
 
   return (
     <Grid container spacing={1}>
@@ -180,7 +179,7 @@ export default function CreateRoomPage(props) {
           </FormHelperText>
         </FormControl>
       </Grid>
-      {update ? renderUpdateButtons() : renderCreateButtons()}
+      {props.update ? renderUpdateButtons() : renderCreateButtons()}
     </Grid>
   );
 }

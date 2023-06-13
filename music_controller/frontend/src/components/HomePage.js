@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect } from "react";
 import RoomJoinPage from "./RoomJoinPage";
 import CreateRoomPage from "./CreateRoomPage";
 import Info from "./info";
@@ -7,10 +7,10 @@ import Room from "./Room";
 import { Grid, Button, ButtonGroup, Typography } from "@material-ui/core";
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
   Link,
-  Redirect,
+  Navigate,
 } from "react-router-dom";
 
 export default function HomePage(props) {
@@ -58,29 +58,22 @@ export default function HomePage(props) {
 
   return (
     <Router>
-      <Switch>
+      <Routes>
         <Route
           exact
           path="/"
-          render={() => {
-            return roomCode ? (
-              <Redirect to={`/room/${roomCode}`} />
-            ) : (
-              renderHomePage()
-            );
-          }}
+          element={
+            roomCode ? <Navigate replace to={`/room/${roomCode}`} /> : renderHomePage()
+          }
         />
-        <Route path="/join" component={RoomJoinPage} />
-        <Route path="/info" component={Info} />
-        <Route path="/create" component={CreateRoomPage} />
+        <Route path="/join" element={<RoomJoinPage />} />
+        <Route path="/info" element={<Info />} />
+        <Route path="/create" element={<CreateRoomPage />} />
         <Route
-          path="/room/:roomCode"
-          render={(props) => {
-            return <Room {...props} leaveRoomCallback={clearRoomCode} />;
-          }}
+          path="/room/:roomCode"  
+          element = {<Room {...props} leaveRoomCallback={clearRoomCode} />}
         />
-      </Switch>
+      </Routes>
     </Router>
   );
 }
-

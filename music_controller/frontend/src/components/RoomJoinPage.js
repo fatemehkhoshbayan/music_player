@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TextField, Button, Grid, Typography } from "@material-ui/core";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function RoomJoinPage() {
   const [roomCode, setRoomCode] = useState("");
@@ -9,7 +9,7 @@ export default function RoomJoinPage() {
   function handleTextFieldChange(e) {
     setRoomCode(e.target.value);
   }
-  const history = useHistory();
+  const navigate = useNavigate();
   function roomButtonPressed() {
     const requestOptions = {
       method: "POST",
@@ -21,7 +21,7 @@ export default function RoomJoinPage() {
     fetch("/api/join-room", requestOptions)
       .then((response) => {
         if (response.ok) {
-          history.push(`/room/${roomCode}`);
+          navigate(`/room/${roomCode}`);
         } else {
           setError("Room not found.");
         }

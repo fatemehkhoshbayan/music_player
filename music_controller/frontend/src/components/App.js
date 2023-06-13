@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "react-dom";
+import ReactDOM from "react-dom/client"; 
 import HomePage from "./HomePage";
 
 export default function App() {
@@ -10,5 +10,5 @@ export default function App() {
   );
 }
 
-const appDiv = document.getElementById("app");
-render(<App />, appDiv);
+const root = ReactDOM.createRoot(document.getElementById("app"));
+root.render(<App />);

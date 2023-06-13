@@ -1,5 +1,4 @@
-import React, { Component, useState } from "react";
-import { render } from "react-dom";
+import React, { useState } from "react";
 import {
   Button,
   Grid,
@@ -11,7 +10,7 @@ import {
   RadioGroup,
   FormControlLabel,
 } from "@material-ui/core";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Collapse } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
@@ -23,7 +22,7 @@ export default function CreateRoomPage(props) {
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
-  const history = useHistory();
+  const navigate = useNavigate();
   function updateCallback() {
     () => {};
   }
@@ -49,7 +48,7 @@ export default function CreateRoomPage(props) {
 
     fetch("/api/create-room", requestOptions)
       .then((response) => response.json())
-      .then((data) => history.push("/room/" + data.code));
+      .then((data) => navigate("/room/" + data.code));
   }
 
   function handleUpdateButtonPressed() {

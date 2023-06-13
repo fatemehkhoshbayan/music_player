@@ -65,13 +65,6 @@ export default function HomePage(props) {
           element={
             roomCode ? <Navigate replace to={`/room/${roomCode}`} /> : renderHomePage()
           }
-          // render={() => {
-          //   return roomCode ? (
-          //     <Redirect to={`/room/${roomCode}`} />
-          //   ) : (
-          //     renderHomePage()
-          //   );
-          // }}
         />
         <Route path="/join" element={<RoomJoinPage />} />
         <Route path="/info" element={<Info />} />
@@ -79,9 +72,6 @@ export default function HomePage(props) {
         <Route
           path="/room/:roomCode"  
           element = {<Room {...props} leaveRoomCallback={clearRoomCode} />}
-          // render={(props) => {
-          //   return <Room {...props} leaveRoomCallback={clearRoomCode} />;
-          // }}
         />
       </Routes>
     </Router>

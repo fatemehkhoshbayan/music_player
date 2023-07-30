@@ -1,0 +1,17 @@
+FROM node:19.6.0-alpine
+
+WORKDIR /app
+
+
+COPY ./music_controller/frontend/package.json .
+COPY ./music_controller/frontend/yarn.lock .
+
+RUN yarn install
+
+# add app
+COPY ./music_controller/frontend ./
+
+EXPOSE 3000
+
+# start app
+CMD ["yarn", "run", "dev"]

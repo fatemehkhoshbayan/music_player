@@ -4,7 +4,7 @@ It's a full stack application which use django and react. It's integrating with 
 
 It's based on https://www.youtube.com/playlist?list=PLzMcBGfZo4-kCLWnGmK0jUBmGLaJxvi4j toturail. 
 
-Instead of using class based component, functional component are used. Also, updated the react vesion to 18.
+Using class based component, functional component are used. Also, updated the react vesion to 18.
 
 Run back-end:
 
